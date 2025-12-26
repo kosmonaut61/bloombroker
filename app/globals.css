@@ -1,0 +1,218 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Dark mode retro theme with phthalo green accent */
+  --background: #0f1419; /* Deep dark background */
+  --foreground: #c5d1dc; /* Light gray text */
+  --card: #1a2530; /* Slightly lighter dark for cards */
+  --card-foreground: #c5d1dc;
+  --popover: #1a2530;
+  --popover-foreground: #c5d1dc;
+  --primary: #0d5c4b; /* Phthalo/dark green accent */
+  --primary-foreground: #e0f2ef;
+  --secondary: #2a3a48; /* Muted dark blue-gray */
+  --secondary-foreground: #c5d1dc;
+  --muted: #243240;
+  --muted-foreground: #7a8b99;
+  --accent: #0a7a63; /* Brighter phthalo green for hover */
+  --accent-foreground: #e0f2ef;
+  --destructive: #8b2942;
+  --destructive-foreground: #fce4ec;
+  --border: #3a4f5f; /* Visible but not harsh border */
+  --input: #1a2530;
+  --ring: #0d5c4b;
+  --chart-1: #0d5c4b;
+  --chart-2: #0a7a63;
+  --chart-3: #2a3a48;
+  --chart-4: #3a4f5f;
+  --chart-5: #7a8b99;
+  --radius: 0px; /* Sharp corners for retro look */
+  --sidebar: #1a2530;
+  --sidebar-foreground: #c5d1dc;
+  --sidebar-primary: #0d5c4b;
+  --sidebar-primary-foreground: #e0f2ef;
+  --sidebar-accent: #243240;
+  --sidebar-accent-foreground: #c5d1dc;
+  --sidebar-border: #3a4f5f;
+  --sidebar-ring: #0d5c4b;
+}
+
+@theme inline {
+  --font-sans: "VT323", monospace;
+  --font-mono: "VT323", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    image-rendering: pixelated;
+  }
+}
+
+/* Updated retro window styling for dark mode */
+.retro-window {
+  background: var(--card);
+  border: 3px solid var(--border);
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.4), inset 2px 2px 0 rgba(255, 255, 255, 0.05), 4px 4px 0
+    rgba(0, 0, 0, 0.5);
+}
+
+.retro-title-bar {
+  background: var(--primary);
+  border-bottom: 2px solid var(--border);
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.retro-window-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.retro-window-btn {
+  width: 16px;
+  height: 16px;
+  background: var(--card);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--foreground);
+}
+
+.retro-window-btn:hover {
+  background: var(--muted);
+}
+
+.retro-btn {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: 3px solid var(--border);
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.3), inset 2px 2px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.1s;
+}
+
+.retro-btn:hover {
+  background: var(--accent);
+  transform: translate(1px, 1px);
+  box-shadow: inset -1px -1px 0 rgba(0, 0, 0, 0.3), inset 1px 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.retro-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.3), inset -2px -2px 0 rgba(255, 255, 255, 0.1);
+}
+
+.retro-btn-secondary {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.retro-btn-secondary:hover {
+  background: var(--muted);
+}
+
+.retro-inset {
+  background: var(--background);
+  border: 2px solid var(--border);
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.3), inset -2px -2px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Custom animations */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Updated scrollbar for dark mode */
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+  border: 2px solid var(--border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border: 2px solid var(--border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
