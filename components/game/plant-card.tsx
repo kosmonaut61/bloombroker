@@ -101,7 +101,7 @@ export function PlantCard({ plant, compact = false, onClick, selected = false, a
     >
       <div className="p-2">
         <div className="space-y-2">
-          <div className="aspect-square retro-inset flex items-center justify-center overflow-hidden bg-background p-2">
+          <div className="aspect-square retro-inset flex items-center justify-center overflow-hidden bg-background p-2 max-w-[80px] sm:max-w-none mx-auto sm:mx-0">
             <Image
               src={plantImage || "/placeholder.svg"}
               alt={plant.name || "Plant"}

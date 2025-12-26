@@ -14,11 +14,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { Leaf, Settings } from "lucide-react"
+import { Leaf, Settings, BookOpen } from "lucide-react"
+import { MarketGuide } from "./market-guide"
 
 export function GameHeader() {
   const { gp, inventory, totalSold, totalEarned, resetGame } = useGameStore()
   const [showResetDialog, setShowResetDialog] = useState(false)
+  const [showMarketGuide, setShowMarketGuide] = useState(false)
 
   return (
     <>
@@ -61,7 +63,14 @@ export function GameHeader() {
                   <div className="retro-title-bar text-sm">
                     <span className="text-primary-foreground">Menu</span>
                   </div>
-                  <div className="p-2">
+                  <div className="p-2 space-y-1">
+                    <DropdownMenuItem
+                      className="cursor-pointer text-lg hover:bg-primary/20"
+                      onClick={() => setShowMarketGuide(true)}
+                    >
+                      <BookOpen className="w-4 h-4 mr-2" />
+                      Market Guide
+                    </DropdownMenuItem>
                     <DropdownMenuItem
                       className="text-destructive cursor-pointer text-lg hover:bg-destructive hover:text-destructive-foreground"
                       onClick={() => setShowResetDialog(true)}
@@ -105,6 +114,8 @@ export function GameHeader() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <MarketGuide open={showMarketGuide} onOpenChange={setShowMarketGuide} />
     </>
   )
 }
