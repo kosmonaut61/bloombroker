@@ -2,6 +2,7 @@
 
 import type { Plant } from "@/lib/game/types"
 import { calculateEstimatedFMV, calculateActualValue } from "@/lib/game/utils"
+import { PLANT_SEEDS } from "@/lib/game/seed-data"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Sparkles, Bug, Skull, AlertTriangle, Heart, Zap, Star, TrendingUp } from "lucide-react"
 import type { ReactNode } from "react"
@@ -19,6 +20,10 @@ export function PlantDetailModal({ plant, open, onClose, actions, showActualValu
 
   const estimatedFMV = calculateEstimatedFMV(plant)
   const actualValue = calculateActualValue(plant)
+
+  // Get plant image with fallback
+  const seedMatch = PLANT_SEEDS.find((s) => s.id === plant.seedId)
+  const plantImage = plant.image || seedMatch?.image || "/placeholder.svg"
 
   const traits = [
     { name: "Rarity", value: plant.traits.rarity, icon: Star, color: "bg-primary" },
@@ -62,11 +67,11 @@ export function PlantDetailModal({ plant, open, onClose, actions, showActualValu
 
           <div className="p-4 space-y-4 max-h-[70vh] overflow-y-auto">
             {/* Plant image */}
-            <div className="aspect-video retro-inset flex items-center justify-center overflow-hidden">
+            <div className="aspect-video retro-inset flex items-center justify-center overflow-hidden bg-background p-2">
               <img
-                src={`/.jpg?height=200&width=300&query=${plant.genus} ${plant.species} plant illustration pixel art`}
+                src={plantImage}
                 alt={`${plant.genus} ${plant.species}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
 

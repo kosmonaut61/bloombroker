@@ -4,6 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { useGameStore } from "@/lib/game/store"
 import { calculateEstimatedFMV, formatTime } from "@/lib/game/utils"
+import { PLANT_SEEDS } from "@/lib/game/seed-data"
 import { Gavel, Eye, ShieldQuestion, Leaf, Sparkles, AlertTriangle } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -22,6 +23,10 @@ export function AuctionPanel() {
 
   const estimatedFMV = calculateEstimatedFMV(plant)
   const canAfford = gp >= askingPrice
+
+  // Get plant image with fallback
+  const seedMatch = PLANT_SEEDS.find((s) => s.id === plant.seedId)
+  const plantImage = plant.image || seedMatch?.image || "/placeholder.svg"
 
   const getSellerColor = (honesty: number) => {
     if (honesty >= 0.8) return "text-secondary"
@@ -76,9 +81,9 @@ export function AuctionPanel() {
           <div className="flex gap-3">
             <div className="w-20 h-20 bg-muted border-2 border-foreground flex items-center justify-center shrink-0 overflow-hidden">
               <img
-                src={`/.jpg?height=80&width=80&query=${plant.genus} ${plant.species} plant pixel art`}
+                src={plantImage}
                 alt={`${plant.genus} ${plant.species}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
             <div className="min-w-0">
