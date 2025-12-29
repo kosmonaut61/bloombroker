@@ -5,7 +5,6 @@ import { InventoryPanel } from "./inventory-panel"
 import { DisplayCasePanel } from "./display-case-panel"
 import { PropagationPanel } from "./propagation-panel"
 import { AuctionPanel } from "./auction-panel"
-import { UpgradesPanel } from "./upgrades-panel"
 import { ActivityLog } from "./activity-log"
 import { GameHeader } from "./game-header"
 
@@ -18,21 +17,16 @@ export function GameDashboard() {
 
       <main className="container mx-auto px-4 pt-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {/* Left Column - Inventory */}
-          <div className="space-y-4">
-            <InventoryPanel />
-            <UpgradesPanel />
-          </div>
-
-          {/* Center Column - Display Case & Customers */}
-          <div className="space-y-4">
+          {/* Large Column (66%) - Display Case & Inventory */}
+          <div className="lg:col-span-2 space-y-4">
             <DisplayCasePanel />
-            <ActivityLog />
+            <InventoryPanel />
           </div>
 
-          {/* Right Column - Propagation & Auctions */}
+          {/* Small Column (33%) - Propagation & Activity */}
           <div className="space-y-4">
             <PropagationPanel />
+            <ActivityLog />
             {currentAuction && <AuctionPanel />}
           </div>
         </div>

@@ -14,13 +14,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { Leaf, Settings, BookOpen } from "lucide-react"
+import { Leaf, Settings, BookOpen, ArrowUp } from "lucide-react"
 import { MarketGuide } from "./market-guide"
+import { UpgradesModal } from "./upgrades-modal"
 
 export function GameHeader() {
   const { gp, inventory, totalSold, totalEarned, resetGame } = useGameStore()
   const [showResetDialog, setShowResetDialog] = useState(false)
   const [showMarketGuide, setShowMarketGuide] = useState(false)
+  const [showUpgrades, setShowUpgrades] = useState(false)
 
   return (
     <>
@@ -51,6 +53,15 @@ export function GameHeader() {
               <div className="retro-inset px-3 py-1 hidden md:flex items-center gap-2">
                 <span className="text-lg">{totalSold} Sold</span>
               </div>
+
+              {/* Upgrades Button */}
+              <button
+                onClick={() => setShowUpgrades(true)}
+                className="retro-btn retro-btn-secondary p-2"
+                title="Upgrades"
+              >
+                <ArrowUp className="w-5 h-5" />
+              </button>
 
               {/* Settings */}
               <DropdownMenu>
@@ -116,6 +127,7 @@ export function GameHeader() {
       </AlertDialog>
 
       <MarketGuide open={showMarketGuide} onOpenChange={setShowMarketGuide} />
+      <UpgradesModal open={showUpgrades} onOpenChange={setShowUpgrades} />
     </>
   )
 }
