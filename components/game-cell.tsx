@@ -1,5 +1,6 @@
 "use client"
 
+import { useRef } from "react"
 import type { CellState, GameStatus } from "@/hooks/use-minesweeper"
 import { FlowerSvg, GenericFlowerSvg } from "@/components/flower-svg"
 import { cn } from "@/lib/utils"
@@ -12,6 +13,8 @@ interface GameCellProps {
   onFlag: (row: number, col: number) => void
   onChord: (row: number, col: number) => void
 }
+
+const LONG_PRESS_MS = 380
 
 const NUMBER_OPACITY: Record<number, number> = {
   1: 0.35,
@@ -45,8 +48,16 @@ function CactusIcon({ className }: { className?: string }) {
 export function GameCell({ cell, status, cellSize, onReveal, onFlag, onChord }: GameCellProps) {
   const fontSize = Math.max(8, Math.floor(cellSize * 0.45))
   const isGameOver = status === "won" || status === "lost"
+  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const longPressTriggeredRef = useRef(false)
+  const suppressClickRef = useRef(false)
 
   const handleClick = () => {
+    if (suppressClickRef.current) {
+      suppressClickRef.current = false
+      return
+    }
+
     if (isGameOver) return
     if (cell.isRevealed) {
       onChord(cell.row, cell.col)
@@ -61,13 +72,53 @@ export function GameCell({ cell, status, cellSize, onReveal, onFlag, onChord }: 
     onFlag(cell.row, cell.col)
   }
 
+  const clearLongPressTimer = () => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current)
+      longPressTimerRef.current = null
+    }
+  }
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (e.pointerType !== "touch") return
+    if (isGameOver || cell.isRevealed || cell.isFlagged) return
+
+    longPressTriggeredRef.current = false
+    clearLongPressTimer()
+
+    longPressTimerRef.current = setTimeout(() => {
+      onFlag(cell.row, cell.col)
+      longPressTriggeredRef.current = true
+      suppressClickRef.current = true
+    }, LONG_PRESS_MS)
+  }
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (e.pointerType !== "touch") return
+
+    clearLongPressTimer()
+
+    if (longPressTriggeredRef.current) {
+      longPressTriggeredRef.current = false
+      return
+    }
+  }
+
+  const handlePointerCancelOrLeave = () => {
+    clearLongPressTimer()
+  }
+
   const isMisflagged = status === "lost" && cell.isFlagged && !cell.isFlower
 
   return (
     <button
       onClick={handleClick}
       onContextMenu={handleContextMenu}
-      style={{ width: cellSize, height: cellSize, fontSize }}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerCancelOrLeave}
+      onPointerCancel={handlePointerCancelOrLeave}
+      style={{ width: cellSize, height: cellSize, fontSize, touchAction: "manipulation" }}
       className={cn(
         "relative flex items-center justify-center select-none transition-none font-mono",
         "border border-foreground/10",
