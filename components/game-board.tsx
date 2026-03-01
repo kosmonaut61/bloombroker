@@ -23,6 +23,10 @@ export function GameBoard({ grid, status, cols, rows, cellSize, onReveal, onFlag
         gridTemplateRows: `repeat(${rows}, ${cellSize}px)`,
         width: cellSize * cols,
         height: cellSize * rows,
+        touchAction: "none",
+        WebkitUserSelect: "none",
+        userSelect: "none",
+        WebkitTouchCallout: "none",
       }}
     >
       {grid.flat().map((cell) => (

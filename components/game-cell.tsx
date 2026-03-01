@@ -83,6 +83,8 @@ export function GameCell({ cell, status, cellSize, onReveal, onFlag, onChord }: 
     if (e.pointerType !== "touch") return
     if (isGameOver || cell.isRevealed || cell.isFlagged) return
 
+    e.preventDefault()
+
     longPressTriggeredRef.current = false
     clearLongPressTimer()
 
@@ -118,7 +120,7 @@ export function GameCell({ cell, status, cellSize, onReveal, onFlag, onChord }: 
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerCancelOrLeave}
       onPointerCancel={handlePointerCancelOrLeave}
-      style={{ width: cellSize, height: cellSize, fontSize, touchAction: "manipulation" }}
+      style={{ width: cellSize, height: cellSize, fontSize, touchAction: "none", WebkitUserSelect: "none", userSelect: "none", WebkitTouchCallout: "none" }}
       className={cn(
         "relative flex items-center justify-center select-none transition-none font-mono",
         "border border-foreground/10",
