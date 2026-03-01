@@ -74,8 +74,8 @@ function GameInstance({
         </button>
       ) : (
         <div className="flex items-center justify-between px-3 py-2 border-t border-foreground text-[10px] text-foreground/40 tracking-wide shrink-0 font-mono">
-          <span>left click — reveal</span>
-          <span>right click — flag</span>
+          <span>tap/click — reveal</span>
+          <span>long press/right click — flag</span>
         </div>
       )}
 
