@@ -188,13 +188,15 @@ export function GameCell({ cell, status, cellSize, onReveal, onFlag, onChord }: 
         <span className="w-[10%] h-[10%] rounded-full bg-foreground opacity-10 block" />
       )}
 
-      {/* DEBUG: coordinate label (chess/battleship style — row=letter, col=number) */}
+      {/* Hidden coordinate retained for debug/reference; UI shows a subtle blue dot */}
       {!cell.isRevealed && !cell.isFlagged && (
         <span
-          className="text-foreground/50 font-mono leading-none"
-          style={{ fontSize: Math.max(6, Math.floor(cellSize * 0.28)) }}
+          data-cell-id={`${String.fromCharCode(65 + cell.row)}${cell.col + 1}`}
+          className="text-primary/55 font-mono leading-none"
+          style={{ fontSize: Math.max(8, Math.floor(cellSize * 0.38)) }}
+          aria-hidden="true"
         >
-          {String.fromCharCode(65 + cell.row)}{cell.col + 1}
+          .
         </span>
       )}
     </button>
