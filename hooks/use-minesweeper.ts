@@ -27,7 +27,7 @@ export const DIFFICULTIES: Record<string, Difficulty> = {
   easy:   { label: "easy",   rows: 9,  cols: 9,  flowers: 10 },
   medium: { label: "medium", rows: 16, cols: 16, flowers: 40 },
   hard:   { label: "hard",   rows: 16, cols: 30, flowers: 99 },
-  mobile: { label: "mobile", rows: 16, cols: 10, flowers: 30 },
+  mobile: { label: "mobile", rows: 16, cols: 10, flowers: 15 },
 }
 
 function createEmptyGrid(rows: number, cols: number): CellState[][] {
