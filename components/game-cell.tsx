@@ -161,7 +161,7 @@ export function GameCell({ cell, status, cellSize, onReveal, onFlag, onChord }: 
 
       {/* Detonated cell — the cactus they stepped on */}
       {cell.isDetonated && cell.isRevealed && (
-        <CactusIcon className="w-[65%] h-[65%] text-primary-foreground" />
+        <CactusIcon className="w-[70%] h-[70%] text-background drop-shadow-[0_0_1px_rgba(27,0,210,0.35)]" />
       )}
 
       {/* Other revealed flowers on loss — dim variant icon */}
